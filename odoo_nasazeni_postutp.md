@@ -28,7 +28,7 @@ Tento návod vás provede nasazením Odoo Community Edition a PostgreSQL na virt
 
 Připojte se k serveru přes SSH (nebo přes konzoli na webu DO):
 ```bash
-ssh root@vase_ip_adresa_dropletu
+ssh root@104.248.244.187
 ```
 
 ### Aktualizace systému
@@ -140,7 +140,7 @@ Zkontrolujte, zda běží: `docker compose ps`.
 ### Nastavení DNS
 U vašeho registrátora domény nastavte **A záznam**:
 *   Host: `odoo` (nebo `@` pro hlavní doménu)
-*   Value: `IP_ADRESA_VASEHO_DROPLETU`
+*   Value: `104.248.244.187`
 *   TTL: 3600
 
 ### Instalace Nginx a Certbot
@@ -154,7 +154,7 @@ Vytvořte konfiguraci pro vaši doménu:
 nano /etc/nginx/sites-available/odoo
 ```
 
-Vložte (nahraďte `vasedomena.cz` vaší skutečnou doménou):
+Vložte (nahraďte `odoo.scholartech.eu` vaší skutečnou doménou):
 
 ```nginx
 upstream odoo {
@@ -162,7 +162,7 @@ upstream odoo {
 }
 
 server {
-    server_name vasedomena.cz www.vasedomena.cz;
+    server_name odoo.scholartech.eu;
 
     access_log /var/log/nginx/odoo.access.log;
     error_log /var/log/nginx/odoo.error.log;
@@ -204,13 +204,13 @@ systemctl reload nginx
 ### Získání SSL certifikátu (HTTPS)
 Spusťte Certbot, který automaticky upraví Nginx a nastaví HTTPS.
 ```bash
-certbot --nginx -d vasedomena.cz -d www.vasedomena.cz
+certbot --nginx -d odoo.scholartech.eu
 ```
 Postupujte podle pokynů na obrazovce (zadejte email, potvrďte podmínky). Vyberte možnost přesměrování HTTP na HTTPS (Redirect).
 
 ## 6. Dokončení
 
-Nyní otevřete v prohlížeči `https://vasedomena.cz`. Měli byste vidět úvodní obrazovku Odoo pro vytvoření databáze.
+Nyní otevřete v prohlížeči `https://odoo.scholartech.eu`. Měli byste vidět úvodní obrazovku Odoo pro vytvoření databáze.
 
 **Důležité pro první spuštění:**
 *   **Master Password**: Toto heslo si **dobře uložte**! Slouží pro správu databází (zálohování, mazání).
